@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+    <title>Gemma 4 12B IT</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/highlight.js@11/styles/github-dark.min.css"
+    />
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <!-- Assistant turns render as plain text by default. To give the assistant
+       a bubble instead, add class="assistant-bubbles" to <body>. -->
+  <body>
+    <div id="banner" class="banner" hidden>
+      <span id="banner-text"></span>
+      <button id="banner-close" class="banner-close" title="Dismiss">✕</button>
+    </div>
+
+    <div class="app">
+      <aside class="sidebar">
+        <h1 class="app-title">Gemma 4 12B IT</h1>
+        <button id="new-chat-btn" class="new-chat-btn">Clear chat</button>
+        <details class="settings">
+          <summary>Settings</summary>
+          <div class="settings-body">
+            <label class="field">
+              <span>System prompt</span>
+              <textarea id="system-prompt" rows="3" placeholder="Optional">You are a helpful assistant.</textarea>
+              <small>Background instructions that steer how the model responds.</small>
+            </label>
+            <!-- Slider/select ranges, steps, and defaults are applied from
+                 window.PARAM_CONFIG (see params.py) so they live in one place. -->
+            <label class="field">
+              <span>Max new tokens: <output id="max-tokens-out"></output></span>
+              <input id="max-tokens" type="range" />
+              <small>Maximum length of the reply, in tokens.</small>
+            </label>
+            <label class="field">
+              <span>Image token budget</span>
+              <select id="image-budget"></select>
+              <small>Higher values preserve more visual detail (OCR/documents). Lower is faster.</small>
+            </label>
+            <label class="field">
+              <span>Temperature: <output id="temperature-out"></output></span>
+              <input id="temperature" type="range" />
+              <small>Higher is more random and creative; 0 is deterministic.</small>
+            </label>
+            <label class="field">
+              <span>Top-p: <output id="top-p-out"></output></span>
+              <input id="top-p" type="range" />
+              <small>Keep the smallest set of tokens whose probabilities sum to this.</small>
+            </label>
+            <label class="field">
+              <span>Top-k: <output id="top-k-out"></output></span>
+              <input id="top-k" type="range" />
+              <small>Consider only the k most likely tokens (0 turns it off).</small>
+            </label>
+            <label class="field">
+              <span>Repetition penalty: <output id="rep-penalty-out"></output></span>
+              <input id="rep-penalty" type="range" />
+              <small>Higher discourages repeating words; 1 turns it off.</small>
+            </label>
+          </div>
+        </details>
+      </aside>
+
+      <div id="sidebar-backdrop" class="sidebar-backdrop"></div>
+
+      <div class="main">
+        <div class="mobile-bar">
+          <button id="menu-btn" class="icon-btn" title="Menu">☰</button>
+          <span class="mobile-title">Gemma 4 12B IT</span>
+          <button id="mobile-new-chat-btn" class="icon-btn" title="Clear chat">🗑</button>
+        </div>
+        <main id="chat-scroll" class="chat-scroll">
+          <div id="chat-log" class="chat-log">
+            <div class="empty-state">Start the conversation below.</div>
+          </div>
+        </main>
+
+        <footer class="composer">
+          <div id="file-chips" class="file-chips"></div>
+          <div class="input-row">
+            <button id="attach-btn" class="icon-btn" title="Attach files">📎</button>
+            <input
+              id="file-input"
+              type="file"
+              accept="image/*,audio/*,video/*"
+              multiple
+              hidden
+            />
+            <textarea id="message" rows="1" placeholder="Message Gemma…" autofocus></textarea>
+            <button id="send-btn" class="send-btn" title="Send">Send</button>
+          </div>
+          <div class="controls-row">
+            <label class="thinking-toggle">
+              <input id="thinking" type="checkbox" />
+              <span class="thinking-label">Thinking</span>
+            </label>
+            <button id="edit-last-btn" class="edit-last-btn" hidden>↩ Edit last</button>
+          </div>
+        </footer>
+      </div>
+    </div>
+
+    <div id="drop-overlay" class="drop-overlay" hidden>
+      <div class="drop-message">Drop files to attach</div>
+    </div>
+
+    <div id="lightbox" class="lightbox" hidden></div>
+
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>
